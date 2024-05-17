@@ -41,7 +41,7 @@ module.exports = async function (options, imports, register) {
     });
 
     try {
-        await fastify.register(require('middie'));
+        await fastify.register(require('@fastify/middie'));
         await configurePlugins(fastify, options.plugins || {});
         register(null, {
             onDestroy: function (callback) {
