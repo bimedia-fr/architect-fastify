@@ -6,13 +6,6 @@ module.exports = async function (options, imports, register) {
     const fastify = require('fastify')(Object.assign({}, {
         logger: true
     }, options.server));
-    /**
-     * Notify error
-     * @param {Error} err error object
-     */
-    function notifyError(err) {
-        imports.hub.emit('error', err);
-    }
 
     async function configurePlugins(fastify, plugins) {
         const keys = Object.keys(plugins);
@@ -27,7 +20,13 @@ module.exports = async function (options, imports, register) {
      * @param {Fastify} fastify server
      * @returns undefined
      */
-    function doListen(fastify) {
+    function doListen(app, fastify) {
+        function notifyError(err) {
+            if(err) {
+                app.emit('error', err);
+            }
+        }
+
         if (options.socket) {
             return socklisten(fastify, options.socket, notifyError);
         }
@@ -37,8 +36,8 @@ module.exports = async function (options, imports, register) {
         fastify.listen(options.port, options.host);
     }
 
-    imports.hub.on('ready', () => {
-        doListen(fastify);
+    imports.hub.on('ready', (app) => {
+        doListen(app, fastify);
     });
 
     try {
