@@ -4,7 +4,7 @@ const listen = require('listen-interface');
 module.exports = async function (options, imports, register) {
     
     const fastify = require('fastify')(Object.assign({}, {
-        logger: true
+        logger: false
     }, options.server));
 
     async function configurePlugins(fastify, plugins) {
