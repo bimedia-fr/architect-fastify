@@ -2,7 +2,6 @@ const socklisten = require('unix-listen');
 const listen = require('listen-interface');
 
 module.exports = async function (options, imports, register) {
-    
     const fastify = require('fastify')(Object.assign({}, {
         logger: false
     }, options.server));
@@ -33,7 +32,7 @@ module.exports = async function (options, imports, register) {
         if (options['interface']) {
             return listen(fastify, options, notifyError);
         }
-        fastify.listen(options.port, options.host);
+        fastify.listen(options);
     }
 
     imports.hub.on('ready', (app) => {

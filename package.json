@@ -23,7 +23,7 @@
   "dependencies": {
     "@fastify/middie": "^8.3.1",
     "fastify": "^4.27.0",
-    "listen-interface": "^1.0.1",
+    "listen-interface": "^1.1.0",
     "unix-listen": "^0.1.1"
   },
   "devDependencies": {
