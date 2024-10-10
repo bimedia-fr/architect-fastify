@@ -21,13 +21,17 @@
   },
   "homepage": "https://github.com/bimedia-fr/architect-fastify#readme",
   "dependencies": {
-    "@fastify/middie": "^8.3.1",
-    "fastify": "^4.27.0",
+    "@fastify/middie": "^9.0.2",
+    "fastify": "^5.0.0",
     "listen-interface": "^1.1.0",
     "unix-listen": "^0.1.1"
   },
   "devDependencies": {
-    "mocha": "^10.4.0",
-    "nyc": "^15.1.0"
+    "architect": "^0.1.13",
+    "architect-access-log": "^2.0.0",
+    "architect-log4js": "^4.2.1",
+    "mocha": "^10.7.3",
+    "nyc": "^17.1.0",
+    "undici": "^6.20.0"
   }
 }
