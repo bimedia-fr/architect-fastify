@@ -2,7 +2,12 @@ const modules = {};
 
 modules['../src/index'] = {
     host: '0.0.0.0',
-    port: 8001
+    port: 8002,
+    plugins: {
+        '@fastify/middie': {
+            hook: 'preParsing'
+        }
+    }
 };
 
 modules['architect-fastify-access-log'] = {
@@ -34,6 +39,6 @@ modules['architect-log4js'] = {
     }
 };
 
-modules['./api'] = {};
+modules['./legacyApi'] = {};
 
 module.exports = modules;

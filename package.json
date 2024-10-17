@@ -4,7 +4,10 @@
   "description": "Expose fastify server as architect plugin\"",
   "main": "src/index.js",
   "scripts": {
-    "test": "mocha --recursive test"
+    "test": "mocha --recursive test",
+    "lint": "eslint src test",
+    "preversion": "npm run lint && npm run test",
+    "postversion": "git push --follow-tags"
   },
   "repository": {
     "type": "git",
@@ -28,8 +31,10 @@
   },
   "devDependencies": {
     "architect": "^0.1.13",
-    "architect-access-log": "^2.0.0",
+    "architect-fastify-access-log": "git+ssh://git@github.com:bimedia-fr/architect-fastify-access-log#v1.0.0-0",
     "architect-log4js": "^4.2.1",
+    "eslint": "^9.12.0",
+    "eslint-plugin-n": "^17.11.1",
     "mocha": "^10.7.3",
     "nyc": "^17.1.0",
     "undici": "^6.20.0"

@@ -3,13 +3,13 @@ const assert = require('assert');
 const architect = require('architect');
 // eslint-disable-next-line n/no-unpublished-require
 const { request } = require('undici');
-const config = require('./_config/apiConfig');
+const config = require('./_config/legacyApiConfig');
 const architectConfig = Object.keys(config).map((name) => (config[name].packagePath = name, config[name]));
 let architectApp = null;
 
 /* eslint-disable no-undef */
 /* eslint-disable no-console */
-describe('architect-fastify test server', async () => {
+describe('architect-fastify legacy test server', async () => {
     before((done) => {
         // Mount test api
         architect.createApp(architect.resolveConfig(architectConfig, __dirname) , async (err, app) => {
@@ -64,41 +64,17 @@ describe('architect-fastify test server', async () => {
             done();
         }
     });
-    describe('api verbs', async () => {
-        it('should respond to basic get', async () => {
+    describe('middleware support', async () => {
+        it('should handle old use middlewares', async () => {
             const {
                 statusCode,
                 body
-            } = await request('http://localhost:8001/get/ok',{
+            } = await request('http://localhost:8002/get/middleware', {
                 headers: { 'user-agent': 'undici' }
             });
             const data = await body.json();
             assert.deepStrictEqual(statusCode, 200);
             assert.deepStrictEqual(data, { result: 'OK' });
-        });
-        it('should respond to basic get with send', async () => {
-            const {
-                statusCode,
-                body
-            } = await request('http://localhost:8001/get/ok-send',{
-                headers: { 'user-agent': 'undici' }
-            });
-            const data = await body.json();
-            assert.deepStrictEqual(statusCode, 200);
-            assert.deepStrictEqual(data, { result: 'OK' });
-        });
-    });
-    describe('api throw', async () => {
-        it('should catch and anonymise error', async () => {
-            const {
-                statusCode,
-                body
-            } = await request('http://localhost:8001/get/throw', {
-                headers: { 'user-agent': 'undici' }
-            });
-            const data = await body.json();
-            assert.deepStrictEqual(statusCode, 500);
-            assert.deepStrictEqual(data, { statusCode: 500, message: 'Internal Server Error' });
         });
     });
 });

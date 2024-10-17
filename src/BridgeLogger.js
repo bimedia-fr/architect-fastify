@@ -11,7 +11,7 @@ class BridgeLogger {
         if(message.res) {
             const req = message.res.raw.req;
             return this.logger.info(
-                req.socket.remoteAddress, '-', 
+                req.socket.remoteAddress, '-',
                 message.res.request.id, '-',
                 '"' + req.method+ ' ' + req.url + ' HTTP/' + req.httpVersion + '" ' + message.res.raw.statusCode, '-',
                 '"' + (req.headers.referer || '-') + '"', '"' + (req.headers['user-agent'] || '-') + '"', '-',
@@ -29,15 +29,15 @@ class BridgeLogger {
         this.logger.warn(message);
     }
 
-    debug(message, context) {
+    debug(message) {
         this.logger.debug(message);
     }
 
-    trace(message, context) {
+    trace(message) {
         this.logger.trace(message);
     }
 
-    fatal(message, context) {
+    fatal(message) {
         this.logger.fatal(message);
     }
 
