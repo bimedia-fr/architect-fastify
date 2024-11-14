@@ -8,7 +8,6 @@ module.exports = async function (options, imports, register) {
 
     async function configurePlugins(fastify, plugins) {
         const keys = Object.keys(plugins);
-        
         for(const name of keys) {
             await fastify.register(require(name), plugins[name] || {});
         };
@@ -40,7 +39,6 @@ module.exports = async function (options, imports, register) {
     });
 
     try {
-        await fastify.register(require('@fastify/middie'));
         await configurePlugins(fastify, options.plugins || {});
         register(null, {
             onDestroy: function (callback) {
@@ -52,5 +50,6 @@ module.exports = async function (options, imports, register) {
         register(error);
     }
 };
+
 module.exports.provides = ['rest'];
 module.exports.consumes = ['hub'];
