@@ -14,6 +14,10 @@ module.exports = function setup(options, imports, register) {
         throw new Error('Oups');
     });
 
+    rest.get('/get/req-id', async (req) => {
+        return { result: req.id };
+    });
+
     register();
 };
 

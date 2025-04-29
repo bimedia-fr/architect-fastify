@@ -1,7 +1,11 @@
 const socklisten = require('unix-listen');
 const listen = require('listen-interface');
+const { v4: uuidv4 } = require('uuid');
 
 module.exports = async function (options, imports, register) {
+    options.server = options.server || {};
+    options.server.genReqId = options.server.genReqId || (() => uuidv4());
+
     const fastify = require('fastify')(Object.assign({}, {
         logger: false
     }, options.server));
