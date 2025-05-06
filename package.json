@@ -5,6 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "test": "mocha --recursive test",
+    "types": "tsc",
     "lint": "eslint src test",
     "preversion": "npm run lint && npm run test",
     "postversion": "git push --follow-tags"
@@ -34,6 +35,7 @@
     "uuid": "^11.1.0"
   },
   "devDependencies": {
+    "@types/node": "^22.15.12",
     "architect": "^0.1.13",
     "architect-fastify-access-log": "git+ssh://git@github.com:bimedia-fr/architect-fastify-access-log#v1.0.0-0",
     "architect-log4js": "^4.2.1",
@@ -41,6 +43,7 @@
     "eslint-plugin-n": "^17.11.1",
     "mocha": "^10.7.3",
     "nyc": "^17.1.0",
+    "typescript": "^5.8.3",
     "undici": "^7.8.0"
   }
 }
