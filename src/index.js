@@ -7,7 +7,6 @@ const { EventEmitter } = require('stream');
 /**
  * @typedef {import('fastify')} Fastify
  * @typedef {import('fastify').FastifyInstance} FastifyInstance
- * @typedef {Error} error
  */
 
 /**
