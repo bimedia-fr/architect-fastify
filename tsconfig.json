@@ -13,7 +13,7 @@
       "allowJs": true,
       "declaration": true,
       "emitDeclarationOnly": true,
-      "target": "ES2016",
+      "target": "ES2022",
       "module": "CommonJS",
       "moduleResolution": "node",
       "outDir": "types",
