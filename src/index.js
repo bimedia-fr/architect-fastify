@@ -1,12 +1,40 @@
 const socklisten = require('unix-listen');
 const listen = require('listen-interface');
 const { v4: uuidv4 } = require('uuid');
+const Fastify = require('fastify');
+const { EventEmitter } = require('stream');
 
+/**
+ * @typedef {import('fastify')} Fastify
+ * @typedef {import('fastify').FastifyInstance} FastifyInstance
+ */
+
+/**
+ * @typedef {Object} ModuleOptions
+ * @property {String} packagePath fastify module path
+ * @property {Number} port port to listen on
+ * @property {String} interface system interface to use
+ * @property {String} socket socket to use
+ * @property {import('fastify').FastifyServerOptions} server fastify configuration
+ * @property {Object} plugins fastify plugins with configurations to load
+ */
+
+/**
+ * @typedef {Object} ModuleExport
+ * @property {FastifyInstance} rest
+ * @property {function():void} onDestroy
+ */
+
+/**
+ * @param {ModuleOptions} options 
+ * @param {{ hub: EventEmitter; }} imports 
+ * @param  {function (Error|null, ModuleExport|null):void}  register 
+ */
 module.exports = async function (options, imports, register) {
     options.server = options.server || {};
     options.server.genReqId = options.server.genReqId || (() => uuidv4());
 
-    const fastify = require('fastify')(Object.assign({}, {
+    const fastify = Fastify(Object.assign({}, {
         logger: false
     }, options.server));
 
@@ -19,7 +47,7 @@ module.exports = async function (options, imports, register) {
 
     /**
      * listen
-     * @param {Fastify} fastify server
+     * @param {FastifyInstance} fastify server instance
      * @returns undefined
      */
     function doListen(app, fastify) {
@@ -29,10 +57,10 @@ module.exports = async function (options, imports, register) {
             }
         }
 
-        if (options.socket) {
+        if(options.socket) {
             return socklisten(fastify, options.socket, notifyError);
         }
-        if (options['interface']) {
+        if(options.interface) {
             return listen(fastify, options, notifyError);
         }
         fastify.listen(options);
@@ -51,7 +79,11 @@ module.exports = async function (options, imports, register) {
             rest: fastify
         });
     } catch (error) {
-        register(error);
+        if(error instanceof Error) {
+            register(error, null);
+        } else {
+            register(new Error('Error'), null);
+        }
     }
 };
 
