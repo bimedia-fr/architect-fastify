@@ -1,5 +1,5 @@
 declare namespace _exports {
-    export { Fastify, FastifyInstance, ModuleOptions, ModuleExport };
+    export { Fastify, FastifyInstance, rest, ModuleOptions, ModuleExport };
 }
 declare function _exports(options: ModuleOptions, imports: {
     hub: EventEmitter;
@@ -11,6 +11,7 @@ declare namespace _exports {
 export = _exports;
 type Fastify = typeof Fastify;
 type FastifyInstance = import("fastify").FastifyInstance;
+type rest = import("fastify").FastifyInstance;
 type ModuleOptions = {
     /**
      * fastify module path
