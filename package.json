@@ -1,6 +1,6 @@
 {
   "name": "architect-fastify",
-  "version": "1.1.3-0",
+  "version": "1.1.3",
   "description": "Expose fastify server as architect plugin\"",
   "main": "src/index.js",
   "scripts": {
