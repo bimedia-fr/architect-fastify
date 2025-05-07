@@ -2,6 +2,7 @@ const socklisten = require('unix-listen');
 const listen = require('listen-interface');
 const { v4: uuidv4 } = require('uuid');
 const Fastify = require('fastify');
+// eslint-disable-next-line no-unused-vars
 const { EventEmitter } = require('stream');
 
 /**
@@ -26,9 +27,9 @@ const { EventEmitter } = require('stream');
  */
 
 /**
- * @param {ModuleOptions} options 
- * @param {{ hub: EventEmitter; }} imports 
- * @param  {function (Error|null, ModuleExport|null):void}  register 
+ * @param {ModuleOptions} options
+ * @param {{ hub: EventEmitter; }} imports
+ * @param  {function (Error|null, ModuleExport|null):void}  register
  */
 module.exports = async function (options, imports, register) {
     options.server = options.server || {};
