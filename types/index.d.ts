@@ -1,18 +1,9 @@
-declare namespace _exports {
-    export { Fastify, FastifyInstance, rest, ModuleOptions, ModuleExport };
-}
-declare function _exports(options: ModuleOptions, imports: {
-    hub: EventEmitter;
-}, register: (arg0: Error | null, arg1: ModuleExport | null) => void): Promise<void>;
-declare namespace _exports {
-    let provides: string[];
-    let consumes: string[];
-}
-export = _exports;
-type Fastify = typeof Fastify;
-type FastifyInstance = import("fastify").FastifyInstance;
-type rest = import("fastify").FastifyInstance;
-type ModuleOptions = {
+export = plugin;
+import { EventEmitter } from 'stream';
+export type Fastify = typeof import('fastify').default;
+export type FastifyInstance = import('fastify').FastifyInstance;
+export type rest = import('fastify').FastifyInstance;
+export type ModuleOptions = {
     /**
      * fastify module path
      */
@@ -32,16 +23,21 @@ type ModuleOptions = {
     /**
      * fastify configuration
      */
-    server: import("fastify").FastifyServerOptions;
+    server: import('fastify').FastifyServerOptions;
     /**
      * fastify plugins with configurations to load
      */
     plugins: any;
 };
-type ModuleExport = {
+export type ModuleExport = {
     rest: FastifyInstance;
-    onDestroy: () => void;
+    onDestroy: (callback?: () => void) => void;
 };
-import { EventEmitter } from "events";
-import Fastify = require("fastify");
+declare function plugin(options: ModuleOptions, imports: {
+    hub: EventEmitter;
+}, register: (err: Error | null, result: ModuleExport | null) => void): Promise<void>;
+declare namespace plugin {
+    var provides: string[];
+    var consumes: string[];
+}
 //# sourceMappingURL=index.d.ts.map

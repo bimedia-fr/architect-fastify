@@ -6,7 +6,7 @@ const Fastify = require('fastify');
 const { EventEmitter } = require('stream');
 
 /**
- * @typedef {import('fastify')} Fastify
+ * @typedef {typeof import('fastify').default} Fastify
  * @typedef {import('fastify').FastifyInstance} FastifyInstance
  * @typedef {import('fastify').FastifyInstance} rest
  */
@@ -24,15 +24,15 @@ const { EventEmitter } = require('stream');
 /**
  * @typedef {Object} ModuleExport
  * @property {FastifyInstance} rest
- * @property {function():void} onDestroy
+ * @property {(callback?: () => void) => void} onDestroy
  */
 
 /**
  * @param {ModuleOptions} options
  * @param {{ hub: EventEmitter; }} imports
- * @param  {function (Error|null, ModuleExport|null):void}  register
+ * @param  {(err: Error|null, result: ModuleExport|null) => void}  register
  */
-module.exports = async function (options, imports, register) {
+const plugin = async function (options, imports, register) {
     options.server = options.server || {};
     options.server.genReqId = options.server.genReqId || (() => uuidv4());
 
@@ -76,7 +76,8 @@ module.exports = async function (options, imports, register) {
         await configurePlugins(fastify, options.plugins || {});
         register(null, {
             onDestroy: function (callback) {
-                fastify.close(callback);
+                if (callback) fastify.close(callback);
+                else fastify.close();
             },
             rest: fastify
         });
@@ -89,5 +90,6 @@ module.exports = async function (options, imports, register) {
     }
 };
 
-module.exports.provides = ['rest'];
-module.exports.consumes = ['hub'];
+plugin.provides = ['rest'];
+plugin.consumes = ['hub'];
+module.exports = plugin;

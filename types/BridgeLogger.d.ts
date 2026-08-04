@@ -1,7 +1,7 @@
 export = BridgeLogger;
 declare class BridgeLogger {
-    constructor(log: any);
     logger: any;
+    constructor(log: any);
     info(message: any): any;
     error(message: any, trace: any): void;
     warn(message: any): void;

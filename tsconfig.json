@@ -13,9 +13,11 @@
       "allowJs": true,
       "declaration": true,
       "emitDeclarationOnly": true,
-      "target": "ES2022",
-      "module": "CommonJS",
-      "moduleResolution": "node",
+      "target": "es2025",
+      "module": "preserve",
+      "moduleResolution": "bundler",
+      "rootDir": "./src",
+      "skipLibCheck": true,
       "outDir": "types",
       // go to js file when using IDE functions like
       // "Go to Definition" in VSCode

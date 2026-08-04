@@ -15,13 +15,7 @@ npm install --save architect-fastify
   packagePath: 'architect-fastify',
   interface: process.env.IFACE, // Or host: process.env.IP
   port: process.env.PORT,
-  server: { /* Fastify server option here */ },
-  // optionnal pluggins
-  plugins: {
-    @fastify/middie: {
-      hook: onRequest
-    }
-  }
+  server: { /* Fastify server option here */ }
 }
 ```
 
